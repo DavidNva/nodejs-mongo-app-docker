@@ -1603,10 +1603,4 @@ docker compose -f docker-compose-dev.yml up --build
 - Conectar Node con Mongo
 - Usar volúmenes
 - Crear ambiente dev con hot reload
----#   n o d e - m o n g o - a p p - d o c k e r 
- 
- #   n o d e j s - m o n g o - a p p - d o c k e r 
- 
- #   n o d e j s - m o n g o - a p p - d o c k e r 
- 
- 
+---#
