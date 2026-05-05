@@ -1,0 +1,70 @@
+# CURSO especificaba version: uso la version: "3.9". Actualmente: Docker Compose moderno ya no lo necesita
+version: "3.9"
+
+services:
+  # Servicio = contenedor
+  chanchito:
+    # Construye una imagen usando Dockerfile.dev, dado que es un archivo diferente al por default, por eso se especifica. 
+    # context indica la carpeta que Docker usará como “contexto de construcción”. Es decir, desde dónde Docker puede leer archivos para construir la imagen.
+    # El punto "." significa: usa la carpeta actual, es decir, la carpeta donde está este docker-compose-dev.yml y normalmente y nuestro caso donde también está nuestro código fuente.
+    build:
+      context: . 
+      dockerfile: Dockerfile.dev
+    # Mapea puerto de nuestra máquina al contenedor.
+    # localhost:3000 -> contenedor:3000.
+    ports:
+      - "3000:3000"
+    # CURSO usaba: links conecta servicios. Pero actualmente, los  links está obsoleto/no recomendado. Dado que Docker Compose ya crea una red automática.
+    # Actualmente usariamos depends_on para especificar el orden o simplemente el nombre del servicio.
+    links:
+      - monguito
+    # Monta tu carpeta local dentro del contenedor. # Esto permite hot reload con nodemon.
+    volumes:
+      - .:/home/app
+  # Servicio de MongoDB.
+  monguito:
+    # Usa imagen oficial de Mongo. Auque en productivo, se recomendaria indicar una version especifica, para evitar romper la app o contenedor en una actualizacion de la imagen, dado que al no especificar una version, obtiene la ultima
+    image: mongo
+    # Mapea puerto Mongo.
+    # localhost:27017 -> contenedor:27017.
+    ports:
+      - "27017:27017"
+    # Variables para crear usuario root inicial.
+    # Funciona, pero en proyectos reales no se debería hardcodear passwords. Actualmente es mejor usar archivo .env.
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=nico
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    # Guarda datos de Mongo fuera del contenedor. Para no perder datos, aun eliminando el contenedor
+    volumes:
+      - mongo-data:/data/db
+# Define los volúmenes usados por los servicios.
+volumes:
+  mongo-data:
+
+
+# version: "3.9"
+# services:
+#   chanchito:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.dev
+#     ports:
+#       - "3000:3000"
+#     links:
+#       - monguito
+#     volumes:
+#       - .:/home/app
+#   monguito:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=nico
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#     volumes:
+#       - mongo-data:/data/db
+#       # mysql -> /var/lib/mysql
+#       # postgres -> /var/lib/postgresql/data
+
+# volumes:
+#   mongo-data:

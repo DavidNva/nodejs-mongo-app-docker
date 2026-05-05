@@ -1,0 +1,66 @@
+#.yml - yamel, enfoncado en configuraciones
+#Define la versión del formato de Docker Compose
+version: "3.9"
+#cada services = un contenedor, en este caso chanchito es la imagen que creamos: build segun nuestro dockerfile y el otro es con una imagen ya creada
+#el cual monguito, es donde se descargar la imagen de mongo
+services:
+  chanchito:
+    build: .
+    ports:
+      - "3000:3000"
+    #conecta contenedores, pero hoy en dia es obsoleto, dado que Docker ya crea red automática
+    links:
+      - monguito
+  monguito: 
+    #usa imagen oficial de Docker Hub (no build)
+    image: mongo
+    ports:
+      - "27017:27017"
+    #variables de entorno que en este caso aplican para mongo db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=nico
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    #indicar al contenedor monguito cuales son los volumenes que este va utilizar, pero solo podremos indicar, siempre y cuando lo hayamos definidos afuera, en volumes, en este caso solo tenemos mongo-data
+    volumes:
+      - mongo-data:/data/db
+      # mysql -> /var/lib/mysql
+      # postgres -> /var/lib/postgresql/data
+##definir todos los volumenes que van a utilizar nuestros contenedores. Sirven para evitar perder datos al eliminar contenedores
+volumes:
+  mongo-data:
+  #otro-volumen:
+
+
+
+
+
+
+
+
+
+
+
+
+
+# version: "3.9"
+# services:
+#   chanchito:
+#     build: .
+#     ports:
+#       - "3000:3000"
+#     links:
+#       - monguito
+#   monguito:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=nico
+#       - MONGO_INITDB_ROOT_PASSWORD=password
+#     volumes:
+#       - mongo-data:/data/db
+#       # mysql -> /var/lib/mysql
+#       # postgres -> /var/lib/postgresql/data
+
+# volumes:
+#   mongo-data:

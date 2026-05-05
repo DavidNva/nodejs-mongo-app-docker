@@ -1,0 +1,44 @@
+# Imagen base oficial de Node.js.
+# CURSO HolaMundo: usa node:18.
+# HOY: funciona, pero Node 18 ya es viejo para proyectos nuevos.
+# actual: node:20-alpine o node:22-alpine a la fecha de 28 de abril del 2026.
+FROM node:18
+
+# Instala nodemon globalmente.
+# HOY no es lo ideal porque no queda controlado por package-lock.json.
+# Actual: poner nodemon en devDependencies y correrlo con npm run dev.
+RUN npm i -g nodemon
+
+# Crea la carpeta donde vivirá la app dentro del contenedor.
+# -p crea carpetas padre si no existen y no falla si ya existe.
+RUN mkdir -p /home/app
+
+# Define el directorio de trabajo. # Después de esto, los comandos se ejecutan desde /home/app , de esta forma ya no es necesario indicar la ruta completa en CDM, solo index.js 
+WORKDIR /home/app
+
+# Expone el puerto interno donde escucha la app. # No abre el puerto solo; el mapeo real se hace en docker-compose.
+EXPOSE 3000
+
+# Ejecuta la app con nodemon.
+# -L significa legacy watch.
+# Sirve para detectar cambios en Docker + Windows/WSL/OneDrive.
+# CURSO usa: CMD ["nodemon", "index.js"]
+# Hicimos el ajuste: CMD ["nodemon", "-L", "index.js"]
+# Actualmente normalmente sería CMD ["npm", "run", "dev"] (ya despues actualizaremos este archivo)
+CMD ["nodemon", "-L", "--watch", ".", "index.js"]
+
+
+# FROM node:18
+
+# #comando run que sirve para detectar los cambios que estamos realizando
+# RUN npm i -g nodemon 
+
+# RUN mkdir -p /home/app
+
+# #comando para indicar que la ruta con la que estaremos trabajando es /home/app de esta forma ya no es necesario indicar la ruta completa en CDM, solo index.js 
+# WORKDIR /home/app
+
+# EXPOSE 3000
+
+# # CMD ["nodemon", "index.js"]
+# CMD ["nodemon", "-L", "index.js"]

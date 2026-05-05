@@ -3,7 +3,7 @@
 Curso completo gratis aca: https://www.youtube.com/watch?v=4Dko5W96WHg
 
 ### Documentación para entender Docker
-# 🐳 curso-docker-node
+# 🐳 curso-docker-node 
 
 > Documentación completa del curso de Docker aplicado a Node.js + MongoDB.  
 > Incluye teoría, comandos, ejemplos, errores comunes, ambiente de desarrollo con hot reload y notas actuales al **28 de abril de 2026**.
@@ -1603,7 +1603,10 @@ docker compose -f docker-compose-dev.yml up --build
 - Conectar Node con Mongo
 - Usar volúmenes
 - Crear ambiente dev con hot reload
----#   n o d e - m o n g o - a p p - d o c k e r  
- #   n o d e j s - m o n g o - a p p - d o c k e r  
- #   n o d e j s - m o n g o - a p p - d o c k e r  
+---#   n o d e - m o n g o - a p p - d o c k e r 
+ 
+ #   n o d e j s - m o n g o - a p p - d o c k e r 
+ 
+ #   n o d e j s - m o n g o - a p p - d o c k e r 
+ 
  
